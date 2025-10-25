@@ -169,6 +169,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               onChanged: (val) {
                                 setState(() => _acceptTerms = val ?? false);
                               },
+
                               activeColor: const Color(0xFF00D3E6),
                             ),
 
@@ -188,6 +189,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF00D3E6),
                             minimumSize: const Size(double.infinity, 48),
+
 
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
