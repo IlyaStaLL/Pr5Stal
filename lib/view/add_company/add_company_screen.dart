@@ -106,6 +106,7 @@ class _AddCompanyScreenState extends State<AddCompanyScreen> {
                         prefixIcon: Icon(Icons.phone_outlined, color: Color(0xFFBBBBBB)),
                         filled: true,
 
+
                         fillColor: Color(0xFF222222),
                         border: OutlineInputBorder(),
                       ),
