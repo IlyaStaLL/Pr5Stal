@@ -79,6 +79,7 @@ class _AddCompanyScreenState extends State<AddCompanyScreen> {
                       ),
                       validator: (v) => (v == null || v.isEmpty) ? 'Введите категорию' : null,
                     ),
+
                     const SizedBox(height: 16),
                     TextFormField(
                       controller: _addressController,
