@@ -78,6 +78,7 @@ class _AddCompanyScreenState extends State<AddCompanyScreen> {
                         border: OutlineInputBorder(),
                       ),
                       validator: (v) => (v == null || v.isEmpty) ? 'Введите категорию' : null,
+
                     ),
 
                     const SizedBox(height: 16),
