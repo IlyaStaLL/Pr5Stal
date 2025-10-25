@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Справочник',
+
       theme: ThemeData(
         brightness: Brightness.dark,
 
@@ -24,10 +25,12 @@ class MyApp extends StatelessWidget {
         inputDecorationTheme: const InputDecorationTheme(
           border: OutlineInputBorder(),
           filled: true,
+
           fillColor: Color(0xFFFFFFFF),
           labelStyle: TextStyle(color: Color(0xFFBBBBBB)),
           prefixIconColor: Color(0xFFBBBBBB),
         ),
+
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF00D3E6),
@@ -35,6 +38,7 @@ class MyApp extends StatelessWidget {
             minimumSize: const Size(double.infinity, 48),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
+
             ),
           ),
         ),
