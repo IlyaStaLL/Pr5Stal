@@ -73,7 +73,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             labelStyle: TextStyle(color: Color(0xFFBBBBBB)),
                             prefixIcon: Icon(Icons.person_outline, color: Color(0xFFBBBBBB)),
                             filled: true,
-                            fillColor: Color(0xFF222222),
+                            fillColor: Color(0xFFFFFFFF),
                             border: OutlineInputBorder(),
                           ),
                           validator: (v) => (v == null || v.isEmpty) ? 'Введите имя' : null,
@@ -89,7 +89,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             labelStyle: TextStyle(color: Color(0xFFBBBBBB)),
                             prefixIcon: Icon(Icons.alternate_email, color: Color(0xFFBBBBBB)),
                             filled: true,
-                            fillColor: Color(0xFF222222),
+                            fillColor: Color(0xFFFFFFFF),
                             border: OutlineInputBorder(),
                           ),
 
@@ -121,11 +121,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
 
                             filled: true,
-                            fillColor: const Color(0xFF222222),
+                            fillColor: const Color(0xFFFFFFFF),
                             border: const OutlineInputBorder(),
                           ),
                           validator: (v) {
-                            if (v == null || v.length < 6) return 'Минимум 6 символов';
+                            if (v == null || v.length < 8) return 'Минимум 8 символов';
                             return null;
                           },
                         ),
@@ -152,7 +152,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
 
                             filled: true,
-                            fillColor: const Color(0xFF222222),
+                            fillColor: const Color(0xFFFFFFFF),
                             border: const OutlineInputBorder(),
                           ),
                           validator: (v) {

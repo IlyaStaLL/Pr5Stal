@@ -4,6 +4,7 @@ class CompanyModel {
   final String address;
   final String phone;
   final String hours;
+  final String imageUrl;
 
   CompanyModel({
     required this.name,
@@ -11,12 +12,6 @@ class CompanyModel {
     required this.address,
     required this.phone,
     required this.hours,
+    required this.imageUrl,
   });
 }
-
-
-
-
-
-
-

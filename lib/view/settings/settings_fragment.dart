@@ -64,7 +64,6 @@ class _SettingsFragmentState extends State<SettingsFragment> {
               style: TextStyle(color: Colors.black),
             ),
             onTap: () {
-              // здесь будет выход
             },
           ),
         ],
