@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
 
 class AddCompanyScreen extends StatefulWidget {
   const AddCompanyScreen({super.key});
@@ -17,9 +19,15 @@ class _AddCompanyScreenState extends State<AddCompanyScreen> {
   final _hoursController = TextEditingController();
 
 
+  // void _onSavePressed() {
+  //   if (_formKey.currentState?.validate() ?? false) {
+  //     Navigator.of(context).pop();
+  //   }
+  // }
+
   void _onSavePressed() {
     if (_formKey.currentState?.validate() ?? false) {
-      Navigator.of(context).pop();
+      context.pop();
     }
   }
 

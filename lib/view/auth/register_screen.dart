@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../main/home_screen.dart';
-
+import 'package:go_router/go_router.dart';
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
@@ -19,6 +19,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _obscure2 = true;
   bool _acceptTerms = false;
 
+  // void _onRegisterPressed() {
+  //   if (!_acceptTerms) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(content: Text('Примите условия использования')),
+  //     );
+  //     return;
+  //   }
+  //
+  //   if (_formKey.currentState?.validate() ?? false) {
+  //     Navigator.of(context).pushReplacement(
+  //       MaterialPageRoute(builder: (_) => const HomeScreen()),
+  //     );
+  //   }
+  // }
   void _onRegisterPressed() {
     if (!_acceptTerms) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -28,12 +42,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
 
     if (_formKey.currentState?.validate() ?? false) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
-      );
+      context.go('/home');
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -203,7 +214,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         const SizedBox(height: 16),
                         TextButton(
-                          onPressed: () => Navigator.of(context).pop(),
+                          onPressed: () => context.pop(),
                           child: const Text(
                             'Уже есть аккаунт? Войти',
 

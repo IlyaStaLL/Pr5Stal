@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'view/auth/login_screen.dart';
+
+
+import 'router/app_router.dart';
+
+
 
 void main() {
   runApp(const MyApp());
@@ -10,67 +14,41 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Справочник',
 
       theme: ThemeData(
-        brightness: Brightness.dark,
-
+        brightness: Brightness.light,
         primaryColor: const Color(0xFF00D3E6),
         scaffoldBackgroundColor: const Color(0xFFFFFFFF),
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF222222),
+
+          backgroundColor: Color(0xFFFFFFFF),
           foregroundColor: Colors.black,
         ),
         inputDecorationTheme: const InputDecorationTheme(
           border: OutlineInputBorder(),
           filled: true,
+          fillColor: Color(0xFFF5F5F5),
 
-          fillColor: Color(0xFFFFFFFF),
-          labelStyle: TextStyle(color: Color(0xFFBBBBBB)),
-          prefixIconColor: Color(0xFFBBBBBB),
+          labelStyle: TextStyle(color: Color(0xFF8B8B8B)),
+          prefixIconColor: Color(0xFF8B8B8B),
         ),
-
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
+
             backgroundColor: const Color(0xFF00D3E6),
-            foregroundColor: const Color(0xFFFFFFFF),
+            foregroundColor: Colors.black,
             minimumSize: const Size(double.infinity, 48),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
-
             ),
           ),
         ),
       ),
-      home: const LoginScreen(),
+
+      routerConfig: router,
       debugShowCheckedModeBanner: false,
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

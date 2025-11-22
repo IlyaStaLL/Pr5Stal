@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../model/company_model.dart';
 import '../add_company/add_company_screen.dart';
+import 'package:go_router/go_router.dart';
+
+
 
 class SearchFragment extends StatefulWidget {
   const SearchFragment({super.key});
@@ -58,9 +61,7 @@ class _SearchFragmentState extends State<SearchFragment> {
   final List<String> _categories = ['Все', 'Учебные заведения', 'Общепит', 'Услуги', 'IT-компании'];
 
   void _addCompany() {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const AddCompanyScreen()),
-    );
+    context.push('/add_company');
   }
 
   List<CompanyModel> get _filteredCompanies {
@@ -159,7 +160,9 @@ class _SearchFragmentState extends State<SearchFragment> {
                       style: const TextStyle(color: Color(0xFFBBBBBB)),
                     ),
                     isThreeLine: true,
-                    onTap: () {},
+                    onTap: () {
+                      context.push('/detail', extra: company);
+                    },
                   ),
                 );
               },

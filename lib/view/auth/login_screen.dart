@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import '../main/home_screen.dart';
 
 import 'register_screen.dart';
+import 'package:go_router/go_router.dart';
+
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -25,19 +28,29 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
+  // void _onLoginPressed() {
+  //   if (_formKey.currentState?.validate() ?? false) {
+  //     Navigator.of(context).pushReplacement(
+  //       MaterialPageRoute(builder: (_) => const HomeScreen()),
+  //     );
+  //   }
+  // }
+  //
+  //
+  // void _goToRegister() {
+  //   Navigator.of(context).push(
+  //     MaterialPageRoute(builder: (_) => const RegisterScreen()),
+  //   );
+  // }
+
   void _onLoginPressed() {
     if (_formKey.currentState?.validate() ?? false) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
-      );
+      context.go('/home');
     }
   }
 
-
   void _goToRegister() {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const RegisterScreen()),
-    );
+    context.push('/register');
   }
 
 
