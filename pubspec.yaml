@@ -5,6 +5,7 @@ version: 1.0.0+1
 environment:
   sdk: ^3.9.2
 dependencies:
+  get_it: ^7.7.0
 #  my_local_package:
 #    path: ./my_local_package
   flutter:

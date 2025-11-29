@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import '../../model/company_model.dart';
+import '../../service/data_service.dart';
 
 
 class AddCompanyScreen extends StatefulWidget {
@@ -27,6 +30,17 @@ class _AddCompanyScreenState extends State<AddCompanyScreen> {
 
   void _onSavePressed() {
     if (_formKey.currentState?.validate() ?? false) {
+      final newCompany = CompanyModel(
+        name: _nameController.text,
+        category: _categoryController.text,
+        address: _addressController.text,
+        phone: _phoneController.text,
+        hours: _hoursController.text,
+        imageUrl: 'https://via.placeholder.com/150',
+      );
+
+      GetIt.I<DataService>().addCompany(newCompany);
+
       context.pop();
     }
   }
@@ -40,8 +54,6 @@ class _AddCompanyScreenState extends State<AddCompanyScreen> {
         backgroundColor: const Color(0xFFFFFFFF),
         foregroundColor: Colors.black,
       ),
-
-
       body: SafeArea(
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
@@ -60,12 +72,10 @@ class _AddCompanyScreenState extends State<AddCompanyScreen> {
                       style: const TextStyle(color: Colors.black),
                       decoration: const InputDecoration(
                         labelText: 'Название компании',
-
-                        labelStyle: TextStyle(color: Color(0xFFBBBBBB)),
-                        prefixIcon: Icon(Icons.business, color: Color(0xFFBBBBBB)),
+                        labelStyle: TextStyle(color: Color(0xFF8B8B8B)),
+                        prefixIcon: Icon(Icons.business, color: Color(0xFF8B8B8B)),
                         filled: true,
-                        fillColor: Color(0xFF222222),
-
+                        fillColor: Color(0xFFF5F5F5),
                         border: OutlineInputBorder(),
                       ),
                       validator: (v) => (v == null || v.isEmpty) ? 'Введите название' : null,
@@ -73,33 +83,27 @@ class _AddCompanyScreenState extends State<AddCompanyScreen> {
                     const SizedBox(height: 16),
                     TextFormField(
                       controller: _categoryController,
-
                       style: const TextStyle(color: Colors.black),
                       decoration: const InputDecoration(
                         labelText: 'Категория',
-
-                        labelStyle: TextStyle(color: Color(0xFFBBBBBB)),
-                        prefixIcon: Icon(Icons.category, color: Color(0xFFBBBBBB)),
+                        labelStyle: TextStyle(color: Color(0xFF8B8B8B)),
+                        prefixIcon: Icon(Icons.category, color: Color(0xFF8B8B8B)),
                         filled: true,
-                        fillColor: Color(0xFF222222),
-
+                        fillColor: Color(0xFFF5F5F5),
                         border: OutlineInputBorder(),
                       ),
                       validator: (v) => (v == null || v.isEmpty) ? 'Введите категорию' : null,
-
                     ),
-
                     const SizedBox(height: 16),
                     TextFormField(
                       controller: _addressController,
                       style: const TextStyle(color: Colors.black),
                       decoration: const InputDecoration(
                         labelText: 'Адрес',
-
-                        labelStyle: TextStyle(color: Color(0xFFBBBBBB)),
-                        prefixIcon: Icon(Icons.location_on_outlined, color: Color(0xFFBBBBBB)),
+                        labelStyle: TextStyle(color: Color(0xFF8B8B8B)),
+                        prefixIcon: Icon(Icons.location_on_outlined, color: Color(0xFF8B8B8B)),
                         filled: true,
-                        fillColor: Color(0xFF222222),
+                        fillColor: Color(0xFFF5F5F5),
                         border: OutlineInputBorder(),
                       ),
                       validator: (v) => (v == null || v.isEmpty) ? 'Введите адрес' : null,
@@ -109,15 +113,12 @@ class _AddCompanyScreenState extends State<AddCompanyScreen> {
                       controller: _phoneController,
                       style: const TextStyle(color: Colors.black),
                       keyboardType: TextInputType.phone,
-
                       decoration: const InputDecoration(
                         labelText: 'Телефон',
-                        labelStyle: TextStyle(color: Color(0xFFBBBBBB)),
-                        prefixIcon: Icon(Icons.phone_outlined, color: Color(0xFFBBBBBB)),
+                        labelStyle: TextStyle(color: Color(0xFF8B8B8B)),
+                        prefixIcon: Icon(Icons.phone_outlined, color: Color(0xFF8B8B8B)),
                         filled: true,
-
-
-                        fillColor: Color(0xFF222222),
+                        fillColor: Color(0xFFF5F5F5),
                         border: OutlineInputBorder(),
                       ),
                       validator: (v) => (v == null || v.isEmpty) ? 'Введите телефон' : null,
@@ -128,18 +129,15 @@ class _AddCompanyScreenState extends State<AddCompanyScreen> {
                       style: const TextStyle(color: Colors.black),
                       decoration: const InputDecoration(
                         labelText: 'Часы работы',
-
-                        labelStyle: TextStyle(color: Color(0xFFBBBBBB)),
-                        prefixIcon: Icon(Icons.access_time, color: Color(0xFFBBBBBB)),
+                        labelStyle: TextStyle(color: Color(0xFF8B8B8B)),
+                        prefixIcon: Icon(Icons.access_time, color: Color(0xFF8B8B8B)),
                         filled: true,
-                        fillColor: Color(0xFF222222),
+                        fillColor: Color(0xFFF5F5F5),
                         border: OutlineInputBorder(),
                       ),
                       validator: (v) => (v == null || v.isEmpty) ? 'Введите часы работы' : null,
                     ),
                     const SizedBox(height: 32),
-
-
                     ElevatedButton(
                       onPressed: _onSavePressed,
                       style: ElevatedButton.styleFrom(
@@ -151,8 +149,7 @@ class _AddCompanyScreenState extends State<AddCompanyScreen> {
                       ),
                       child: const Text(
                         'Сохранить',
-
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black),
                       ),
                     ),
                   ],
@@ -165,5 +162,3 @@ class _AddCompanyScreenState extends State<AddCompanyScreen> {
     );
   }
 }
-
-
