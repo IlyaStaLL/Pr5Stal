@@ -4,9 +4,11 @@ import 'service/data_service.dart';
 
 import 'package:get_it/get_it.dart';
 
+import 'bloc/company_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
-  setupLocator();
+  //setupLocator();
   runApp(const MyApp());
 }
 
@@ -19,43 +21,42 @@ void setupLocator() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Справочник',
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primaryColor: const Color(0xFF00D3E6),
-        scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+    return BlocProvider(
+      create: (context) => CompanyCubit(),
+      child: MaterialApp.router(
+        title: 'Справочник',
+        theme: ThemeData(
 
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFFFFFFFF),
-
-          foregroundColor: Colors.black,
-        ),
-        inputDecorationTheme: const InputDecorationTheme(
-          border: OutlineInputBorder(),
-          filled: true,
-          fillColor: Color(0xFFF5F5F5),
-          labelStyle: TextStyle(color: Color(0xFF8B8B8B)),
-          prefixIconColor: Color(0xFF8B8B8B),
-        ),
-
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF00D3E6),
+          brightness: Brightness.light,
+          primaryColor: const Color(0xFF00D3E6),
+          scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Color(0xFFFFFFFF),
             foregroundColor: Colors.black,
-            minimumSize: const Size(double.infinity, 48),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
+          ),
+          inputDecorationTheme: const InputDecorationTheme(
+            border: OutlineInputBorder(),
+            filled: true,
+            fillColor: Color(0xFFF5F5F5),
+            labelStyle: TextStyle(color: Color(0xFF8B8B8B)),
+            prefixIconColor: Color(0xFF8B8B8B),
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF00D3E6),
+              foregroundColor: Colors.black,
+              minimumSize: const Size(double.infinity, 48),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
             ),
           ),
         ),
+        routerConfig: router,
+        debugShowCheckedModeBanner: false,
       ),
-      routerConfig: router,
-
-      debugShowCheckedModeBanner: false,
     );
   }
 }

@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import '../../model/company_model.dart';
 import '../../service/data_service.dart';
 
+import '../../bloc/company_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddCompanyScreen extends StatefulWidget {
   const AddCompanyScreen({super.key});
@@ -39,7 +41,7 @@ class _AddCompanyScreenState extends State<AddCompanyScreen> {
         imageUrl: 'https://via.placeholder.com/150',
       );
 
-      GetIt.I<DataService>().addCompany(newCompany);
+      context.read<CompanyCubit>().addCompany(newCompany);
 
       context.pop();
     }

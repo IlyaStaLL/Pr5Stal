@@ -7,6 +7,9 @@ import 'package:go_router/go_router.dart';
 import 'package:get_it/get_it.dart';
 import '../../service/data_service.dart';
 
+import '../../bloc/company_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 class SearchFragment extends StatefulWidget {
   const SearchFragment({super.key});
 
@@ -57,29 +60,18 @@ class _SearchFragmentState extends State<SearchFragment> {
   //     imageUrl: 'https://play-lh.googleusercontent.com/9cJ0zkM1_JlYOKFiRh-ntbrLR1233Az0apAhrF6W61dOpjUaYp1-ohSHU5Gr00NzJg',
   //   ),
   // ];
-  late List<CompanyModel> _companies;
   String _selectedCategory = 'Все';
   final List<String> _categories = ['Все', 'Учебные заведения', 'Общепит', 'Услуги', 'IT-компании'];
 
-  @override
-  void initState() {
-    super.initState();
-    _companies = GetIt.I<DataService>().companies;
-  }
-
   void _addCompany() {
-    context.push('/add_company').then((_) {
-      setState(() {
-        _companies = GetIt.I<DataService>().companies;
-      });
-    });
+    context.push('/add_company');
   }
 
-  List<CompanyModel> get _filteredCompanies {
+  List<CompanyModel> _filterCompanies(List<CompanyModel> companies) {
     if (_selectedCategory == 'Все') {
-      return _companies;
+      return companies;
     }
-    return _companies.where((c) => c.category == _selectedCategory).toList();
+    return companies.where((c) => c.category == _selectedCategory).toList();
   }
 
   @override
@@ -124,57 +116,54 @@ class _SearchFragmentState extends State<SearchFragment> {
             ),
           ),
           Expanded(
-            child: _filteredCompanies.isEmpty
-                ? const Center(
-              child: Text(
-                'Нет компаний в этой категории',
-                style: TextStyle(color: Color(0xFF8B8B8B)),
-              ),
-            )
-                : ListView.separated(
-              padding: const EdgeInsets.all(16),
-              itemCount: _filteredCompanies.length,
-              separatorBuilder: (context, index) => const SizedBox(height: 12),
-              itemBuilder: (context, index) {
-                final company = _filteredCompanies[index];
-                return Container(
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF000000),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: const Color(0xFFFFFFFF)),
-                  ),
-                  child: ListTile(
-                    leading: SizedBox(
-                      width: 50,
-                      height: 50,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: CachedNetworkImage(
-                          imageUrl: company.imageUrl,
-                          placeholder: (context, url) => const CircularProgressIndicator(
-                            color: Colors.white,
-                          ),
-                          errorWidget: (context, url, error) => const Icon(
-                            Icons.business,
-                            color: Colors.white,
-                          ),
-                          fit: BoxFit.cover,
-                        ),
+            child: BlocBuilder<CompanyCubit, CompanyState>(
+              builder: (context, state) {
+                final filteredCompanies = _filterCompanies(state.companies);
+
+                if (filteredCompanies.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      'Нет компаний в этой категории',
+                      style: TextStyle(color: Color(0xFF8B8B8B)),
+                    ),
+                  );
+                }
+
+                return ListView.separated(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: filteredCompanies.length,
+                  separatorBuilder: (context, index) => const SizedBox(height: 12),
+                  itemBuilder: (context, index) {
+                    final company = filteredCompanies[index];
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF000000),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: const Color(0xFFFFFFFF)),
                       ),
-                    ),
-                    title: Text(
-                      company.name,
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                    subtitle: Text(
-                      '${company.address}\n${company.phone}',
-                      style: const TextStyle(color: Color(0xFFBBBBBB)),
-                    ),
-                    isThreeLine: true,
-                    onTap: () {
-                      context.push('/detail', extra: company);
-                    },
-                  ),
+                      child: ListTile(
+                        leading: SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: CachedNetworkImage(
+                              imageUrl: company.imageUrl,
+                              placeholder: (context, url) => const CircularProgressIndicator(color: Colors.white),
+                              errorWidget: (context, url, error) => const Icon(Icons.business, color: Colors.white),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        title: Text(company.name, style: const TextStyle(color: Colors.white)),
+                        subtitle: Text('${company.address}\n${company.phone}', style: const TextStyle(color: Color(0xFFBBBBBB))),
+                        isThreeLine: true,
+                        onTap: () {
+                          context.push('/detail', extra: company);
+                        },
+                      ),
+                    );
+                  },
                 );
               },
             ),
