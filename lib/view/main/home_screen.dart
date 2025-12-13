@@ -4,6 +4,7 @@ import '../../model/user_model.dart';
 import '../profile/profile_fragment.dart';
 import '../search/search_fragment.dart';
 import '../settings/settings_fragment.dart';
+import '../../domain/models/company.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../model/company_model.dart';
+import '../../domain/models/company.dart';
 
 class CompanyDetailScreen extends StatelessWidget {
-  final CompanyModel company;
+  final Company company;
 
   const CompanyDetailScreen({super.key, required this.company});
 

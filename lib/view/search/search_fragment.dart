@@ -10,6 +10,9 @@ import '../../service/data_service.dart';
 import '../../bloc/company_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../domain/models/company.dart';
+import '../../presentation/bloc/company_cubit.dart';
+
 class SearchFragment extends StatefulWidget {
   const SearchFragment({super.key});
 
@@ -67,7 +70,7 @@ class _SearchFragmentState extends State<SearchFragment> {
     context.push('/add_company');
   }
 
-  List<CompanyModel> _filterCompanies(List<CompanyModel> companies) {
+  List<Company> _filterCompanies(List<Company> companies) {
     if (_selectedCategory == 'Все') {
       return companies;
     }
@@ -80,12 +83,9 @@ class _SearchFragmentState extends State<SearchFragment> {
       backgroundColor: const Color(0xFFFFFFFF),
       appBar: AppBar(
         title: const Text('Поиск компаний'),
-        backgroundColor: const Color(0xFFFFFFFF),
-        foregroundColor: Colors.black,
         actions: [
           IconButton(
             icon: const Icon(Icons.add, color: Color(0xFF00D3E6)),
-            tooltip: 'Добавить компанию',
             onPressed: _addCompany,
           ),
         ],
@@ -93,24 +93,17 @@ class _SearchFragmentState extends State<SearchFragment> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding: const EdgeInsets.all(8.0),
             child: Wrap(
               spacing: 8.0,
-              runSpacing: 4.0,
               children: _categories.map((category) {
                 return FilterChip(
-                  label: Text(category, style: TextStyle(color: _selectedCategory == category ? Colors.black : Colors.black)),
+                  label: Text(category),
                   selected: _selectedCategory == category,
                   onSelected: (selected) {
-                    if (selected) {
-                      setState(() {
-                        _selectedCategory = category;
-                      });
-                    }
+                    if (selected) setState(() => _selectedCategory = category);
                   },
-                  backgroundColor: const Color(0xFFEEEEEE),
                   selectedColor: const Color(0xFF00D3E6),
-                  checkmarkColor: Colors.black,
                 );
               }).toList(),
             ),
@@ -118,50 +111,26 @@ class _SearchFragmentState extends State<SearchFragment> {
           Expanded(
             child: BlocBuilder<CompanyCubit, CompanyState>(
               builder: (context, state) {
-                final filteredCompanies = _filterCompanies(state.companies);
-
-                if (filteredCompanies.isEmpty) {
-                  return const Center(
-                    child: Text(
-                      'Нет компаний в этой категории',
-                      style: TextStyle(color: Color(0xFF8B8B8B)),
-                    ),
-                  );
-                }
-
+                final filtered = _filterCompanies(state.companies);
                 return ListView.separated(
                   padding: const EdgeInsets.all(16),
-                  itemCount: filteredCompanies.length,
-                  separatorBuilder: (context, index) => const SizedBox(height: 12),
+                  itemCount: filtered.length,
+                  separatorBuilder: (_, __) => const SizedBox(height: 12),
                   itemBuilder: (context, index) {
-                    final company = filteredCompanies[index];
-                    return Container(
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF000000),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: const Color(0xFFFFFFFF)),
-                      ),
-                      child: ListTile(
-                        leading: SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: CachedNetworkImage(
-                              imageUrl: company.imageUrl,
-                              placeholder: (context, url) => const CircularProgressIndicator(color: Colors.white),
-                              errorWidget: (context, url, error) => const Icon(Icons.business, color: Colors.white),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+                    final company = filtered[index];
+                    return ListTile(
+                      leading: SizedBox(
+                        width: 50, height: 50,
+                        child: CachedNetworkImage(
+                          imageUrl: company.imageUrl,
+                          fit: BoxFit.cover,
+                          placeholder: (_, __) => const CircularProgressIndicator(),
+                          errorWidget: (_, __, ___) => const Icon(Icons.error),
                         ),
-                        title: Text(company.name, style: const TextStyle(color: Colors.white)),
-                        subtitle: Text('${company.address}\n${company.phone}', style: const TextStyle(color: Color(0xFFBBBBBB))),
-                        isThreeLine: true,
-                        onTap: () {
-                          context.push('/detail', extra: company);
-                        },
                       ),
+                      title: Text(company.name),
+                      subtitle: Text(company.address),
+                      onTap: () => context.push('/detail', extra: company),
                     );
                   },
                 );

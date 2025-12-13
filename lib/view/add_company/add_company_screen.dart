@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import '../../model/company_model.dart';
-import '../../service/data_service.dart';
+//import '../../model/company_model.dart';
+//import '../../service/data_service.dart';
 
-import '../../bloc/company_cubit.dart';
+//import '../../bloc/company_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../domain/models/company.dart';
+import '../../presentation/bloc/company_cubit.dart';
 
 class AddCompanyScreen extends StatefulWidget {
   const AddCompanyScreen({super.key});
@@ -32,17 +34,17 @@ class _AddCompanyScreenState extends State<AddCompanyScreen> {
 
   void _onSavePressed() {
     if (_formKey.currentState?.validate() ?? false) {
-      final newCompany = CompanyModel(
+      final newCompany = Company(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
         name: _nameController.text,
         category: _categoryController.text,
         address: _addressController.text,
         phone: _phoneController.text,
         hours: _hoursController.text,
-        imageUrl: 'https://via.placeholder.com/150',
+        imageUrl: '',
       );
 
       context.read<CompanyCubit>().addCompany(newCompany);
-
       context.pop();
     }
   }
